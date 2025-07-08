@@ -20,7 +20,7 @@
 - **GitHub를 활용한 꾸준한 기록 및 복습**
 
 ## 🛠 Tech Stack
-- **Language**: Python 🐍
+- **Language**: JAVA, Python
 - **IDE**: VSCode
 - **Version Control**: Git & GitHub
 
