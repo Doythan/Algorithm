@@ -7,9 +7,10 @@ public class Solution {
         String str = sc.next();
         int n = sc.nextInt();
         
-        for (int i = 0; i < n; i++) {
-            System.out.print(str);
-        }
+        // for (int i = 0; i < n; i++) {
+        //     System.out.print(str);
+        // }
+        System.out.print(str.repeat(n));
     }
 }
 
