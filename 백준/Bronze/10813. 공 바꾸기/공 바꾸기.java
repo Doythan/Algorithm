@@ -24,7 +24,7 @@ public class Main {
 			arr[a] = arr[b];
 			arr[b] = temp;
 		}
-		
+		br.close();
 		for (int i= 0; i < N; i++) System.out.print(arr[i] + " ");
 	}
 }
