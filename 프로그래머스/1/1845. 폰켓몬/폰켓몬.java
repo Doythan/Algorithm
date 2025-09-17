@@ -2,19 +2,20 @@ import java.util.*;
 
 class Solution {
     public int solution(int[] nums) {
-        Map<Integer, Integer> mons = new HashMap<>();
-        int answer = 0;
+        int l = nums.length / 2;
+        int cnt = 0;
+        Map<Integer, Integer> map = new HashMap<>();
         
-        for(Integer num : nums) {
-            mons.put(num, mons.getOrDefault(num, 0) + 1);
+        for (Integer num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
         }
         
-        for(Map.Entry<Integer, Integer> mon : mons.entrySet()) {
-            answer++;
+        for (Map.Entry<Integer, Integer> m : map.entrySet()) {
+            cnt++;
         }
         
-        if (answer > (nums.length / 2)) answer = nums.length/2;
-        return answer;
-       
+        if (cnt > l) cnt = l;
+        return cnt;
+        
     }
 }
