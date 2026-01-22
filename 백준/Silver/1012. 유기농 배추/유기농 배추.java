@@ -2,58 +2,62 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    static int[][] arr;
-    static int[] dx = {1, -1, 0, 0};
-    static int[] dy = {0, 0, 1, -1};
+    static int M;  // 가로
+    static int N;  // 세로
+    static int K;  // 배추 개수
+    static int earthWorm = 0;  // 지렁이 개수 
+    static int[][] field;  // 배추 밭 
+
+    static int[] dx = {-1, 1, 0, 0};
+    static int[] dy = {0, 0, -1, 1};
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
+        StringTokenizer st;
 
         int T = Integer.parseInt(br.readLine());  // TestCase 
         
         while (T-- > 0) {
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            int M = Integer.parseInt(st.nextToken()); // 가로 
-            int N = Integer.parseInt(st.nextToken()); // 세로
-            int K = Integer.parseInt(st.nextToken()); // 배추 개수
+            st = new StringTokenizer(br.readLine());
+            M = Integer.parseInt(st.nextToken());
+            N = Integer.parseInt(st.nextToken());
+            K = Integer.parseInt(st.nextToken());
 
-            arr = new int[M][N];
+            field = new int[N][M];
 
             for (int i=0; i<K; i++) {
-                StringTokenizer st2 = new StringTokenizer(br.readLine());
-                int x = Integer.parseInt(st2.nextToken());
-                int y = Integer.parseInt(st2.nextToken());
-                arr[x][y] = 1;
+                st = new StringTokenizer(br.readLine());
+                int y = Integer.parseInt(st.nextToken());
+                int x = Integer.parseInt(st.nextToken());
+                field[x][y] = 1;
             }
 
-            int count = 0;
-
-            for (int i=0; i<M; i++) {
-                for (int j=0; j<N; j++) {
-                    if (arr[i][j] == 1) {
-                        dfs(i, j, M, N);
-                        count ++;
+            for (int i=0; i<N; i++) {
+                for (int j=0; j<M; j++) {
+                    if (field[i][j] == 1) {
+                        searchCabbage(i, j);
+                        earthWorm++;
                     }
                 }
             }
-            sb.append(count).append('\n');
+            sb.append(earthWorm).append("\n");
+            earthWorm = 0;
         }
-        System.out.print(sb);
+        System.out.println(sb);
     }
-    
-    static void dfs(int x, int y, int M, int N) {
-        arr[x][y] = 0; // 방문처리
 
+    static void searchCabbage(int x, int y) {
+        // 방문 처리 
+        field[x][y] = 0;
+
+        // 조건 확인
         for (int d=0; d<4; d++) {
             int nx = x + dx[d];
             int ny = y + dy[d];
 
-            if (nx >= 0 && ny >=0 && nx < M && ny < N) {
-                if (arr[nx][ny] == 1) {
-                    dfs(nx, ny, M, N);
-                }
-            }
+            if (nx < 0 || ny < 0 || nx >= N || ny >= M) continue;
+            if (field[nx][ny] == 1) searchCabbage(nx, ny);
         }
     }
 }
