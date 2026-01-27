@@ -1,35 +1,53 @@
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
 public class Main {
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int N = sc.nextInt();
-		int[] A = new int[N];
-		for(int i=0; i<N; i++) {
-			A[i] = sc.nextInt();
-		}
-		Arrays.sort(A);
-		int M = sc.nextInt();
-		for(int i=0; i<M; i++) {
-			boolean find = false;
-			int target = sc.nextInt();
-			
-			// 이진 탐색 시작
-			int start = 0;
-			int end = A.length - 1;
-			while(start <= end) {
-				int midi = (start + end) / 2;
-				int midV = A[midi];
-				if(midV > target) end = midi - 1;
-				else if(midV < target) start = midi + 1;
-				else {
-					find = true;
-					break;
-				}
-			}
-			if (find) System.out.println(1);
-			else System.out.println(0);
-		}
-	}
+    static int N, M;
+    static int[] arr, arrTwo;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+
+        N = Integer.parseInt(br.readLine());
+        arr = new int[N];
+        st = new StringTokenizer(br.readLine());
+        for (int i=0; i<N; i++) {
+            arr[i] = Integer.parseInt(st.nextToken()); 
+        }
+
+        Arrays.sort(arr);
+
+        M = Integer.parseInt(br.readLine());
+        arrTwo = new int[M];
+        st = new StringTokenizer(br.readLine());
+        for (int i=0; i<M; i++) {
+            arrTwo[i] = Integer.parseInt(st.nextToken());
+        }
+
+        for (int i=0; i<M; i++) {
+            int num = arrTwo[i];
+            int result = isNumExists(num);
+            System.out.println(result);
+        }
+    }
+
+    public static int isNumExists(int target) {
+        int left = 0;
+        int right = arr.length - 1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+
+            if (arr[mid] == target) return 1;
+            if (arr[mid] < target) {
+                left = mid + 1;
+                continue;
+            }
+            if (arr[mid] > target) {
+                right = mid - 1;
+                continue;
+            }
+        }
+        return 0;
+    }
 }
